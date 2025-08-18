@@ -13,4 +13,87 @@
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  font-family: var(--main-font), sans-serif;
+  font-variation-settings: "wght" var(--main-font-text-weight);
+  background-image: var(--gradient);
+  background-size: cover;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 2px solid #000;
+  padding: clamp(7.5rem, 7.28rem + 0.94vw, 8.125rem) 0px
+    clamp(7.5rem, 7.28rem + 0.94vw, 8.125rem);
+  margin: 100px 0px;
+}
+
+.inline-size {
+  inline-size: var(--inline-size);
+}
+
+.header__title {
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-text-weight);
+  text-transform: uppercase;
+  font-size: clamp(3.0625rem, 2.7107rem + 1.5009vw, 4.0625rem);
+  align-self: center;
+  justify-self: center;
+}
+
+.header__text {
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-text-weight);
+  text-transform: uppercase;
+  font-size: clamp(0.875rem, 0.6771rem + 0.8443vw, 1.4375rem);
+  align-self: center;
+  justify-self: center;
+  padding-block-start: 20px;
+}
+
+.main {
+  background-color: #fff;
+  font-size: 18px;
+}
+
+.main__card-list {
+  display: grid;
+  gap: 52px;
+}
+
+.main__card-list-item {
+  background-color: #fff;
+  border: 2px solid #000;
+}
+
+.main__title {
+  font-variation-settings: "wght" var(--main-font-title-weight);
+  font-size: 18px;
+  max-inline-size: 351px;
+  padding: 5px 10px;
+}
+
+.label {
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-text-weight);
+  font-size: 14px;
+  text-transform: uppercase;
+  color: transparent; 
+  mix-blend-mode: hard-light;
+}
+
+@supports (-webkit-text-stroke: 2px #000) {
+  .stroke {
+    -webkit-text-stroke: 2px #000;
+  }
+}
+
+.main__card-list-text {
+  font-size: 18px;
+  padding: 25px;
+}
+
+.place-text {
+  padding: 25px;
 }
