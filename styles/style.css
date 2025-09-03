@@ -9,7 +9,6 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
@@ -17,11 +16,15 @@
   font-variation-settings: "wght" var(--main-font-text-weight);
   background-image: var(--gradient);
   background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
   background-color: #fff;
   border: 2px solid #000;
   padding: clamp(7.5rem, 7.28rem + 0.94vw, 8.125rem) 0px
@@ -30,7 +33,7 @@
 }
 
 .inline-size {
-  inline-size: var(--inline-size);
+  max-inline-size: var(--inline-size);
 }
 
 .header__title {
@@ -53,7 +56,6 @@
 }
 
 .main {
-  background-color: #fff;
   font-size: 18px;
 }
 
@@ -79,13 +81,38 @@
   font-weight: var(--accent-font-text-weight);
   font-size: 14px;
   text-transform: uppercase;
-  color: transparent; 
+  position: relative;
+}
+
+.image {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.freetrack {
+  filter: brightness(80%) contrast(80%);
+}
+
+.text__label {
+  color: transparent;
+  top: 25px;
+  right: 25px;
+  text-shadow: -1px 0 var(--label-stroke-color), 0 1px var(--label-stroke-color),
+    1px 0 var(--label-stroke-color), 0 -1px var(--label-stroke-color);
+  opacity: 50%;
+  position: absolute;
   mix-blend-mode: hard-light;
 }
 
-@supports (-webkit-text-stroke: 2px #000) {
-  .stroke {
-    -webkit-text-stroke: 2px #000;
+@supports (
+  (text-stroke: 1px var(--label-stroke-color)) or
+    (-webkit-text-stroke: 1px var(--label-stroke-color))
+) {
+  .text__label {
+    -webkit-text-stroke: 1px var(--label-stroke-color);
+    text-stroke: 1px var(--label-stroke-color);
+    text-shadow: none;
   }
 }
 
@@ -94,6 +121,323 @@
   padding: 25px;
 }
 
-.place-text {
-  padding: 25px;
+.my-text {
+  padding: 0px 25px;
+}
+
+.like__buttons {
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  padding: 23px 25px 24px 25px;
+}
+
+.card__icon-button {
+  background-color: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  padding: 0px;
+  display: flex;
+  margin-inline-end: 4px;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--focus-visible-heart-button);
+  margin: 7px;
+}
+
+.like-icon {
+  transform-origin: center;
+}
+
+.like-icon.is-liked {
+  animation: heart-scale 0.3s ease-in 0.1s forwards;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--main-body-color);
+  transition: fill 0.3s linear 0.06s;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--main-body-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon:hover .main-body {
+  fill: var(--contour-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked:hover .main-body {
+  fill: var(--main-body-color);
+}
+
+.like-icon:active .main-body {
+  fill: var(--main-body-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .core {
+  fill: var(--main-body-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:hover .core {
+  fill: var(--contour-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked:hover .core {
+  fill: var(--main-body-color);
+}
+
+.like-icon:active .core {
+  fill: var(--main-body-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .sparks {
+  animation: sparks-flash 0.3s ease-in 0.3s;
+}
+
+.contour {
+  fill: var(--contour-color);
+  transition: fill 0.1s linear;
+}
+
+.main-body {
+  fill: transparent;
+  transition: fill 0.3s linear;
+}
+
+.core {
+  fill: transparent;
+  transition: fill 0.3s linear 0.03s;
+}
+
+.sparks {
+  fill: var(--sparks-color);
+  opacity: 0;
+}
+
+.card__like-button {
+  border: 2px solid #000;
+  background-color: transparent;
+  align-self: center;
+  padding: 9px 35px 6px;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card__like-button::before {
+  content: "";
+  inline-size: 100%;
+  block-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  transform: translateX(-100%);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.card__like-button:hover::before {
+  transform: translateX(0);
+}
+
+.card__like-button:focus {
+  outline: none;
+  box-shadow: 2px 2px 0px #000;
+}
+
+.button__text {
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-text-weight);
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  color: var(--hover-text-color);
+  mix-blend-mode: difference;
+}
+
+.first__sprint-first {
+  filter: contrast(120%);
+}
+
+.first__sprint-second {
+  filter: brightness(65%);
+}
+
+.second__sprint-first {
+  filter: opacity(85%);
+}
+
+.third__sprint-first {
+  filter: saturate(150%);
+}
+
+.third__sprint-second {
+  filter: grayscale(100%);
+}
+
+.now {
+  filter: sepia(0.4);
+}
+
+.main__button {
+  border: 2px solid #000;
+  background-color: #fff;
+  padding: 16px 19px;
+  margin: 50px 32.5px 100px 32.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.main__button:focus {
+  outline: none;
+  box-shadow: 2px 2px 0px #000;
+}
+
+.main__button::before {
+  content: "";
+  inline-size: 100%;
+  block-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  transform: translateX(-100%);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.main__button:hover::before {
+  transform: translateX(0);
+}
+
+.button__floppy {
+  max-inline-size: 28px;
+  block-size: auto;
+  padding-block-end: 8px;
+  position: relative;
+  z-index: 1;
+  color: var(--hover-text-color);
+  mix-blend-mode: difference;
+  fill: currentColor;
+}
+
+.dialog {
+  padding: 0px;
+}
+
+dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
+}
+
+.dialog__content {
+  display: flex;
+}
+
+.dialog__floppy {
+  max-inline-size: 39px;
+  block-size: auto;
+  margin: 42px 20px 42px 38px;
+}
+
+.dialog__text {
+  text-transform: uppercase;
+  max-inline-size: 234px;
+  line-height: 150%;
+  padding: 30px 8px 30px 0px;
+}
+
+.main__form {
+  padding: 0px 40px 26px 40px;
+}
+
+.ok__button {
+  background-color: transparent;
+  border: 2px solid #000;
+  text-transform: uppercase;
+  padding: 6px 114px 5px 113px;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ok__button:focus {
+  outline: none;
+  box-shadow: 2px 2px 0px #000;
+}
+
+.ok__button::before {
+  content: "";
+  inline-size: 100%;
+  block-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  transform: translateX(-100%);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.ok__button:hover::before {
+  transform: translateX(0);
+}
+
+@media (width >= 1440px) {
+  .header {
+    margin: 97px 0px;
+  }
+
+  .main__title {
+    min-inline-size: 676px;
+  }
+
+  .main__button {
+    flex-direction: row;
+    justify-self: center;
+  }
+
+  .button__floppy {
+    padding-block-end: 0px;
+    padding-inline-end: 8px;
+  }
+
+  .dialog__floppy {
+    margin: 38px 18px 42px 28px;
+  }
+
+  .dialog__text {
+    padding: 28px 8px 28px 2px;
+  }
+
+  .main__form {
+    padding: 0px 27px 27px 28px;
+  }
+
+  .ok__button {
+    padding: 6px 129px 5px 131px;
+  }
 }
