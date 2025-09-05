@@ -122,6 +122,7 @@
 .main__card-list-text {
   font-size: 18px;
   padding: 30px 25px 0px;
+  line-height: 21px;
 }
 
 .like__buttons {
@@ -155,7 +156,7 @@
 }
 
 .like-icon.is-liked {
-  animation: heart-scale 0.3s ease-in 0.1s forwards;
+  animation: heart-scale 0.3s ease-in 0.1s;
 }
 
 .like-icon.is-liked .contour {
